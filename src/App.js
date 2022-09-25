@@ -1,5 +1,6 @@
 import { GlobalStyles } from './components/styles/GlobalStyles';
 import Header from './components/Header';
+import ToDoContainer from './components/ToDoContainer';
 import { ThemeProvider } from 'styled-components';
 import { light } from './themes';
 
@@ -9,6 +10,7 @@ function App() {
       <>
         <GlobalStyles />
         <Header />
+        <ToDoContainer />
       </>
     </ThemeProvider>
   );
