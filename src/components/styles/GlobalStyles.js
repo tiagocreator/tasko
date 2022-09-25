@@ -15,8 +15,12 @@ export const GlobalStyles = createGlobalStyle`
   body {
     font-size: 16px;
     color: ${({ theme }) => theme.text};
-    background: ${({ theme }) => theme.background};
+    background: ${({ theme }) => theme.bg1};
     font-family: 'Dosis', sans-serif;
+    min-height: 100vh;
+    width: 95%;
+    max-width: 1024px;
+    margin: 0 auto;
   }
 
   ul {
@@ -26,5 +30,9 @@ export const GlobalStyles = createGlobalStyle`
   a {
     text-decoration: none;
     color: inherit;
+  }
+
+  button {
+    cursor: pointer;
   }
 `;
