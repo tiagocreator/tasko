@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const HeaderStyle = styled.header`
   height: 75px;
   width: 100%;
-  padding-inline: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -33,7 +32,6 @@ export const HeaderStyle = styled.header`
     display: flex;
     align-items: center;
     justify-content: center;
-    color: ${({ theme }) => theme.text};
     font-size: 2.8rem;
   }
 
@@ -41,11 +39,13 @@ export const HeaderStyle = styled.header`
     padding: 3px;
     width: 46px;
     height: 46px;
-    border: 4px solid ${({ theme }) => theme.primary};
+    border: 4px solid ${({ theme }) => theme.themeRed};
     border-radius: 50%;
   }
 
-  @media (min-width: 550px) {
-    padding-inline: 60px;
+  @media (min-width: 768px) {
+    .burger-menu {
+      display: none;
+    }
   }
 `;
