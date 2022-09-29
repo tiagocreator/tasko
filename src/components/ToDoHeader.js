@@ -15,7 +15,7 @@ const ToDoHeader = () => {
 
   return (
     <ToDoHeaderStyle>
-      <SecondaryButton onClick={openModal} text="Add Task" />
+      <SecondaryButton onClick={openModal} text="Nova Tarefa" />
       <Select>
         <option value="all">Todos</option>
         <option value="incomplete">Incompletos</option>
