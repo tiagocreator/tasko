@@ -20,7 +20,7 @@ export const todoSlice = createSlice({
   reducers: {
     addTodo: (state, action) => {
       state.todoList.push(action.payload);
-      const todoList = window.localStorage.getItem('todolist');
+      const todoList = window.localStorage.getItem('todoList');
 
       if (todoList) {
         const todoListArr = JSON.parse(todoList);
