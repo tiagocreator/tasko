@@ -3,6 +3,7 @@ import Header from './components/Header';
 import ToDoContainer from './components/ToDoContainer';
 import { ThemeProvider } from 'styled-components';
 import { light } from './themes';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
@@ -11,6 +12,13 @@ function App() {
         <GlobalStyles />
         <Header />
         <ToDoContainer />
+        <Toaster
+          toastOptions={{
+            style: {
+              fontSize: '1.4rem',
+            },
+          }}
+        />
       </>
     </ThemeProvider>
   );
