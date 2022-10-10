@@ -3,12 +3,14 @@ import format from 'date-fns/format';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { deleteTodo } from '../redux/todoSlice';
+import { toast } from 'react-hot-toast';
 
 const ToDoItem = ({ todo }) => {
   const dispatch = useDispatch();
 
   const deleteTask = () => {
     dispatch(deleteTodo(todo.id));
+    toast.success('Tarefa Apagada');
   };
 
   const updateTask = () => {
