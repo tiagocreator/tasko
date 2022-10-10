@@ -1,10 +1,14 @@
 import { ToDoItemStyle } from './styles/ToDoItemStyles';
 import format from 'date-fns/format';
 import { MdDelete, MdEdit } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import { deleteTodo } from '../redux/todoSlice';
 
 const ToDoItem = ({ todo }) => {
+  const dispatch = useDispatch();
+
   const deleteTask = () => {
-    console.log('Delete');
+    dispatch(deleteTodo(todo.id));
   };
 
   const updateTask = () => {
