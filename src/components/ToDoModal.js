@@ -7,7 +7,7 @@ import { addTodo } from '../redux/todoSlice';
 import { v4 as uuid } from 'uuid';
 import toast from 'react-hot-toast';
 
-const TodoModal = ({ modalActive, setModalActive }) => {
+const TodoModal = ({ modalActive, setModalActive, type }) => {
   const [title, setTitle] = useState('');
   const [status, setStatus] = useState('incomplete');
   const dispatch = useDispatch();
@@ -19,18 +19,24 @@ const TodoModal = ({ modalActive, setModalActive }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (title && status) {
-      dispatch(
-        addTodo({
-          id: uuid(),
-          title: title,
-          status: status,
-          time: new Date().toLocaleString(),
-        })
-      );
-      toast.success('Nova Tarefa Adicionada');
-      setModalActive(false);
+      if (type === 'add') {
+        dispatch(
+          addTodo({
+            id: uuid(),
+            title: title,
+            status: status,
+            time: new Date().toLocaleString(),
+          })
+        );
+        toast.success('Nova Tarefa Adicionada');
+        setModalActive(false);
+      }
+      if (type === 'update') {
+        console.log('Atualizando tarefa');
+      }
     } else {
       toast.error('A tarefa precisa de um nome');
+      return;
     }
   };
 
@@ -48,7 +54,9 @@ const TodoModal = ({ modalActive, setModalActive }) => {
           <MdOutlineClose />
         </div>
         <form className="form" onSubmit={(e) => handleSubmit(e)}>
-          <h1 className="form-title">nova tarefa</h1>
+          <h1 className="form-title">
+            {type === 'update' ? 'atualizar' : 'nova'} tarefa
+          </h1>
           <label htmlFor="title">
             Nome
             <input
@@ -71,7 +79,11 @@ const TodoModal = ({ modalActive, setModalActive }) => {
             </select>
           </label>
           <div className="button-container">
-            <SecondaryButton className="add" type="submit" text="Adicionar" />
+            <SecondaryButton
+              className="add"
+              type="submit"
+              text={type === 'update' ? 'Atualizar' : 'Adicionar'}
+            />
             <PrimaryButton className="cancel" text="Cancelar" />
           </div>
         </form>
