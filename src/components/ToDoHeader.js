@@ -21,7 +21,11 @@ const ToDoHeader = () => {
         <option value="incomplete">Incompletos</option>
         <option value="complete">Completos</option>
       </Select>
-      <ToDoModal modalActive={modalActive} setModalActive={setModalActive} />
+      <ToDoModal
+        type="add"
+        modalActive={modalActive}
+        setModalActive={setModalActive}
+      />
     </ToDoHeaderStyle>
   );
 };
