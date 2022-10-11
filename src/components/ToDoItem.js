@@ -1,12 +1,15 @@
+import { useState } from 'react';
 import { ToDoItemStyle } from './styles/ToDoItemStyles';
 import format from 'date-fns/format';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { deleteTodo } from '../redux/todoSlice';
 import { toast } from 'react-hot-toast';
+import TodoModal from './ToDoModal';
 
 const ToDoItem = ({ todo }) => {
   const dispatch = useDispatch();
+  const [updateModalOpen, setupdateModalOpen] = useState(false);
 
   const deleteTask = () => {
     dispatch(deleteTodo(todo.id));
@@ -14,45 +17,54 @@ const ToDoItem = ({ todo }) => {
   };
 
   const updateTask = () => {
-    console.log('Update');
+    setupdateModalOpen(true);
   };
 
   return (
-    <ToDoItemStyle>
-      <div className="todoDetails">
-        [ ]
-        <div className="texts">
-          <p
-            className={`todoText ${
-              todo.status === 'complete' && 'todoText--completed'
-            }`}
+    <>
+      <ToDoItemStyle>
+        <div className="todoDetails">
+          [ ]
+          <div className="texts">
+            <p
+              className={`todoText ${
+                todo.status === 'complete' && 'todoText--completed'
+              }`}
+            >
+              {todo.title}
+            </p>
+            <p className="time">
+              {format(new Date(todo.time), 'p, dd/MM/yyyy')}
+            </p>
+          </div>
+        </div>
+        <div className="todoActions">
+          <div
+            className="icon"
+            role="button"
+            tabIndex={0}
+            onKeyDown={deleteTask}
+            onClick={deleteTask}
           >
-            {todo.title}
-          </p>
-          <p className="time">{format(new Date(todo.time), 'p, dd/MM/yyyy')}</p>
+            <MdDelete />
+          </div>
+          <div
+            className="icon"
+            role="button"
+            tabIndex={0}
+            onKeyDown={updateTask}
+            onClick={updateTask}
+          >
+            <MdEdit />
+          </div>
         </div>
-      </div>
-      <div className="todoActions">
-        <div
-          className="icon"
-          role="button"
-          tabIndex={0}
-          onKeyDown={deleteTask}
-          onClick={deleteTask}
-        >
-          <MdDelete />
-        </div>
-        <div
-          className="icon"
-          role="button"
-          tabIndex={0}
-          onKeyDown={updateTask}
-          onClick={updateTask}
-        >
-          <MdEdit />
-        </div>
-      </div>
-    </ToDoItemStyle>
+      </ToDoItemStyle>
+      <TodoModal
+        type="update"
+        modalActive={updateModalOpen}
+        setModalActive={setupdateModalOpen}
+      />
+    </>
   );
 };
 
