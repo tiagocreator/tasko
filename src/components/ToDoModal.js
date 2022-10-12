@@ -1,16 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ToDoModalStyle } from './styles/ToDoModalStyles';
 import { MdOutlineClose } from 'react-icons/md';
 import { PrimaryButton, SecondaryButton } from './Button';
 import { useDispatch } from 'react-redux';
-import { addTodo } from '../redux/todoSlice';
+import { addTodo, updateTodo } from '../redux/todoSlice';
 import { v4 as uuid } from 'uuid';
 import toast from 'react-hot-toast';
 
-const TodoModal = ({ modalActive, setModalActive, type }) => {
+const TodoModal = ({ modalActive, setModalActive, type, todo }) => {
   const [title, setTitle] = useState('');
   const [status, setStatus] = useState('incomplete');
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (type === 'update' && todo) {
+      setTitle(todo.title);
+      setStatus(todo.status);
+    } else {
+      setTitle('');
+      setStatus('incomplete');
+    }
+  }, [type, todo, modalActive]);
 
   const closeModal = () => {
     setModalActive(false);
@@ -18,6 +29,12 @@ const TodoModal = ({ modalActive, setModalActive, type }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (title === '') {
+      toast.error('A tarefa precisa de um nome');
+      return;
+    }
+
     if (title && status) {
       if (type === 'add') {
         dispatch(
@@ -29,14 +46,15 @@ const TodoModal = ({ modalActive, setModalActive, type }) => {
           })
         );
         toast.success('Nova Tarefa Adicionada');
-        setModalActive(false);
       }
       if (type === 'update') {
-        console.log('Atualizando tarefa');
+        if (todo.title !== title || todo.status !== status) {
+          dispatch(updateTodo({ ...todo, title, status }));
+        } else {
+          toast.error('Nenhuma mudança feita');
+        }
       }
-    } else {
-      toast.error('A tarefa precisa de um nome');
-      return;
+      setModalActive(false);
     }
   };
 
