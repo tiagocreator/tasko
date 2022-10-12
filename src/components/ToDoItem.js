@@ -61,6 +61,7 @@ const ToDoItem = ({ todo }) => {
       </ToDoItemStyle>
       <TodoModal
         type="update"
+        todo={todo}
         modalActive={updateModalOpen}
         setModalActive={setupdateModalOpen}
       />
