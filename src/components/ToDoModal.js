@@ -42,7 +42,7 @@ const TodoModal = ({ modalActive, setModalActive, type, todo }) => {
             id: uuid(),
             title: title,
             status: status,
-            time: new Date().toLocaleString(),
+            time: new Date().toString(),
           })
         );
         toast.success('Nova Tarefa Adicionada');
