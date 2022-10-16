@@ -5,11 +5,12 @@ export const ToDoItemStyle = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
-  margin-block-end: 1.5rem;
   border-radius: 4px;
+  background: ${({ theme }) => theme.white};
+  margin-block-start: 1rem;
 
-  &:last-child {
-    margin-block-end: 0;
+  &:first-of-type {
+    margin-block-start: 0;
   }
 
   .todoDetails {
@@ -17,32 +18,6 @@ export const ToDoItemStyle = styled.div`
     align-items: center;
     justify-content: flex-start;
     gap: 1rem;
-  }
-
-  .svgBox {
-    flex-basis: 25px;
-    flex-shrink: 0;
-    height: 25px;
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6px;
-    cursor: pointer;
-    transition: 0.3s ease background-color;
-
-    &:hover {
-      background-color: ${({ theme }) => theme.bg4};
-    }
-
-    svg {
-      width: 100%;
-      height: 100%;
-      stroke: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
   }
 
   .texts {
