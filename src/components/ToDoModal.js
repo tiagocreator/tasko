@@ -50,6 +50,9 @@ const TodoModal = ({ modalActive, setModalActive, type, todo }) => {
       if (type === 'update') {
         if (todo.title !== title || todo.status !== status) {
           dispatch(updateTodo({ ...todo, title, status }));
+          toast('Tarefa Atualizada!', {
+            icon: '🔄',
+          });
         } else {
           toast.error('Nenhuma mudança feita');
         }
