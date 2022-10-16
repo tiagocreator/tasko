@@ -10,7 +10,7 @@ const ToDo = () => {
 
   return (
     <ToDoStyle>
-      <div>
+      <div className="content-wrapper">
         {sortedTodoList && sortedTodoList.length > 0
           ? sortedTodoList.map((task) => <ToDoItem todo={task} key={task.id} />)
           : 'Ainda não tem nenhuma tarefa na lista'}
