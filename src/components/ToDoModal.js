@@ -55,6 +55,7 @@ const TodoModal = ({ modalActive, setModalActive, type, todo }) => {
           });
         } else {
           toast.error('Nenhuma mudança feita');
+          return;
         }
       }
       setModalActive(false);
@@ -105,7 +106,11 @@ const TodoModal = ({ modalActive, setModalActive, type, todo }) => {
               type="submit"
               text={type === 'update' ? 'Atualizar' : 'Adicionar'}
             />
-            <PrimaryButton className="cancel" text="Cancelar" />
+            <PrimaryButton
+              className="cancel"
+              text="Cancelar"
+              onClick={closeModal}
+            />
           </div>
         </form>
       </div>
