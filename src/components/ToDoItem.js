@@ -7,6 +7,18 @@ import { deleteTodo, updateTodo } from '../redux/todoSlice';
 import { toast } from 'react-hot-toast';
 import TodoModal from './ToDoModal';
 import CheckBox from './CheckBox';
+import { motion } from 'framer-motion';
+
+const child = {
+  hidden: {
+    y: 20,
+    opacity: 0,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
 
 const ToDoItem = ({ todo }) => {
   const dispatch = useDispatch();
@@ -41,7 +53,7 @@ const ToDoItem = ({ todo }) => {
 
   return (
     <>
-      <ToDoItemStyle>
+      <ToDoItemStyle as={motion.div} variants={child}>
         <div className="todoDetails">
           <CheckBox checked={checked} handleCheck={handleCheck} />
           <div className="texts">
