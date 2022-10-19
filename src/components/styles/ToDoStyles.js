@@ -13,4 +13,19 @@ export const ToDoStyle = styled.main`
       font-size: 1.5rem;
     }
   }
+
+  .empty-text {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: ${({ theme }) => theme.text};
+    text-align: center;
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    width: 100%;
+
+    @media (min-width: 768px) {
+      font-size: 1.4rem;
+    }
+  }
 `;
