@@ -1,10 +1,13 @@
 import { GlobalStyles } from './components/styles/GlobalStyles';
 import Header from './components/Header';
-import ToDoContainer from './components/ToDoContainer';
 import Footer from './components/Footer';
 import { ThemeProvider } from 'styled-components';
 import { light } from './themes';
 import { Toaster } from 'react-hot-toast';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import ToDoContainer from './pages/ToDoContainer';
+import PomodoroContainer from './pages/PomodoroContainer';
 
 function App() {
   return (
@@ -12,7 +15,12 @@ function App() {
       <>
         <GlobalStyles />
         <Header />
-        <ToDoContainer />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<ToDoContainer />}></Route>
+            <Route path="/pomodoro" element={<PomodoroContainer />}></Route>
+          </Routes>
+        </BrowserRouter>
         <Footer />
         <Toaster
           toastOptions={{
