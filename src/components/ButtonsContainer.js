@@ -10,7 +10,7 @@ const ButtonsContainer = () => {
     <ButtonsContainerStyle>
       <StyledLink to="/" className="tasks" value="tasks">
         <FaTasks className="icon" />
-        Tasks
+        Tarefas
       </StyledLink>
       <StyledLink to="/pomodoro" className="pomodoro" value="pomodoro">
         <BsClockFill className="icon" />
