@@ -25,3 +25,30 @@ export const ButtonStyle = styled.button`
     color: ${({ theme }) => theme.bg1};
   }
 `;
+
+export const PomodoroButtonStyle = styled.button`
+  background-color: transparent;
+  border: 0;
+  display: inline-block;
+  width: 100px;
+  cursor: pointer;
+  color: ${({ color }) => color};
+`;
+
+export const SettingsButtonStyle = styled.button`
+  margin-block-start: 20px;
+  width: auto;
+  background: ${({ theme }) => theme.bg2};
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 1.3rem;
+  line-height: 36px;
+  border: 2px solid ${({ theme }) => theme.text};
+  text-align: center;
+
+  svg {
+    width: 36px;
+    float: left;
+    margin-inline-end: 5px;
+  }
+`;
