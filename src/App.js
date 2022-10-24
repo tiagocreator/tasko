@@ -2,7 +2,7 @@ import { GlobalStyles } from './components/styles/GlobalStyles';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { ThemeProvider } from 'styled-components';
-import { light } from './themes';
+import { theme } from './themes';
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ import PomodoroContainer from './pages/PomodoroContainer';
 
 function App() {
   return (
-    <ThemeProvider theme={light}>
+    <ThemeProvider theme={theme}>
       <>
         <GlobalStyles />
         <Header />
