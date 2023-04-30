@@ -1,6 +1,6 @@
 ## tasko
 
-### :computer: [Clique aqui para ver o projeto online](https://tasko-nine.vercel.app/)
+### :computer: [Link do Projeto](https://tasko-nine.vercel.app/)
 
 ---
 
