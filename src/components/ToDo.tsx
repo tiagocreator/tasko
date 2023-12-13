@@ -3,11 +3,11 @@ import { ToDoStyle } from './styles/ToDoStyles';
 import ToDoItem from './ToDoItem';
 import { motion } from 'framer-motion';
 
-const ToDo = () => {
-  const filterStatus = useSelector((state) => state.todo.filterStatus);
-  const todoList = useSelector((state) => state.todo.todoList);
+const ToDo: React.FC = () => {
+  const filterStatus = useSelector((state: any) => state.todo.filterStatus);
+  const todoList = useSelector((state: any) => state.todo.todoList);
   const sortedTodoList = [...todoList].sort(
-    (a, b) => new Date(b.time) - new Date(a.time)
+    (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime(),
   );
 
   const filteredToDoList = sortedTodoList.filter((item) => {
@@ -42,15 +42,14 @@ const ToDo = () => {
   return (
     <ToDoStyle>
       <motion.div
-        className="content-wrapper"
+        className='content-wrapper'
         variants={container}
-        initial="hidden"
-        animate="visible"
-      >
+        initial='hidden'
+        animate='visible'>
         {filteredToDoList && filteredToDoList.length > 0 ? (
           filteredToDoList.map((task) => <ToDoItem todo={task} key={task.id} />)
         ) : (
-          <motion.p className="empty-text" variants={child}>
+          <motion.p className='empty-text' variants={child}>
             Ainda não tem nenhuma tarefa na lista
           </motion.p>
         )}

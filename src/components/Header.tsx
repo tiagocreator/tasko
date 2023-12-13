@@ -1,11 +1,12 @@
 import { HeaderStyle } from './styles/HeaderStyle';
-import Logo from '../images/logo.png';
 
-const Header = () => {
+const Logo: string = require('../images/logo.png');
+
+const Header: React.FC = () => {
   return (
     <HeaderStyle>
-      <div className="logo">
-        <img src={Logo} alt="" height="30" width="30" />
+      <div className='logo'>
+        <img src={Logo} alt='' height='30' width='30' />
         <span>tasko</span>
       </div>
     </HeaderStyle>

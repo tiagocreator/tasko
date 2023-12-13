@@ -7,9 +7,9 @@ import ToDoModal from './ToDoModal';
 import { ToDoHeaderStyle } from './styles/ToDoHeaderStyles';
 import { filterItems } from '../redux/todoSlice';
 
-const ToDoHeader = () => {
-  const [modalActive, setModalActive] = useState(false);
-  const filterStatus = useSelector((state) => state.todo.filterStatus);
+const ToDoHeader: React.FC = () => {
+  const [modalActive, setModalActive] = useState<boolean>(false);
+  const filterStatus = useSelector((state: any) => state.todo.filterStatus);
 
   const dispatch = useDispatch();
 
@@ -17,23 +17,19 @@ const ToDoHeader = () => {
     setModalActive(true);
   };
 
-  const updateFilterStatus = (e) => {
+  const updateFilterStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(filterItems(e.target.value));
   };
 
   return (
     <ToDoHeaderStyle>
-      <SecondaryButton onClick={openModal} text="Nova Tarefa" />
+      <SecondaryButton onClick={openModal} text='Nova Tarefa' />
       <Select value={filterStatus} onChange={updateFilterStatus}>
-        <option value="all">Todos</option>
-        <option value="incomplete">Incompletos</option>
-        <option value="complete">Completos</option>
+        <option value='all'>Todos</option>
+        <option value='incomplete'>Incompletos</option>
+        <option value='complete'>Completos</option>
       </Select>
-      <ToDoModal
-        type="add"
-        modalActive={modalActive}
-        setModalActive={setModalActive}
-      />
+      <ToDoModal type='add' modalActive={modalActive} setModalActive={setModalActive} />
     </ToDoHeaderStyle>
   );
 };

@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const ToDoModalStyle = styled.div`
+interface ToDoModalStyleProps {
+  modalActive: boolean;
+}
+
+export const ToDoModalStyle = styled.div<ToDoModalStyleProps>`
   display: ${({ modalActive }) => (modalActive ? 'flex' : 'none')};
   position: fixed;
   top: 0;

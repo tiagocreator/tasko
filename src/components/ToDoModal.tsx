@@ -7,9 +7,23 @@ import { addTodo, updateTodo } from '../redux/todoSlice';
 import { v4 as uuid } from 'uuid';
 import toast from 'react-hot-toast';
 
-const TodoModal = ({ modalActive, setModalActive, type, todo }) => {
-  const [title, setTitle] = useState('');
-  const [status, setStatus] = useState('incomplete');
+interface ToDoItemProps {
+  id: number;
+  title: string;
+  status: string;
+  time: string;
+}
+
+interface TodoModalProps {
+  modalActive: boolean;
+  setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
+  type: string;
+  todo?: ToDoItemProps | null;
+}
+
+const TodoModal: React.FC<TodoModalProps> = ({ modalActive, setModalActive, type, todo }) => {
+  const [title, setTitle] = useState<string>('');
+  const [status, setStatus] = useState<string>('incomplete');
 
   const dispatch = useDispatch();
 
@@ -27,7 +41,7 @@ const TodoModal = ({ modalActive, setModalActive, type, todo }) => {
     setModalActive(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (title === '') {
@@ -39,16 +53,16 @@ const TodoModal = ({ modalActive, setModalActive, type, todo }) => {
       if (type === 'add') {
         dispatch(
           addTodo({
-            id: uuid(),
+            id: Number(uuid()),
             title: title,
             status: status,
             time: new Date().toString(),
-          })
+          }),
         );
         toast.success('Nova Tarefa Adicionada');
       }
       if (type === 'update') {
-        if (todo.title !== title || todo.status !== status) {
+        if (todo?.title !== title || todo?.status !== status) {
           dispatch(updateTodo({ ...todo, title, status }));
           toast('Tarefa Atualizada!', {
             icon: '🔄',
@@ -64,53 +78,45 @@ const TodoModal = ({ modalActive, setModalActive, type, todo }) => {
 
   return (
     <ToDoModalStyle modalActive={modalActive}>
-      <div className="container">
+      <div className='container'>
         <div
-          className="close-btn"
+          className='close-btn'
           onClick={closeModal}
           onKeyDown={closeModal}
           tabIndex={0}
-          role="button"
-        >
+          role='button'>
           <span>cancelar</span>
           <MdOutlineClose />
         </div>
-        <form className="form" onSubmit={(e) => handleSubmit(e)}>
-          <h1 className="form-title">
-            {type === 'update' ? 'atualizar' : 'nova'} tarefa
-          </h1>
-          <label htmlFor="title">
+        <form className='form' onSubmit={(e) => handleSubmit(e)}>
+          <h1 className='form-title'>{type === 'update' ? 'atualizar' : 'nova'} tarefa</h1>
+          <label htmlFor='title'>
             Nome
             <input
-              type="text"
-              id="title"
+              type='text'
+              id='title'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
           </label>
-          <label htmlFor="status">
+          <label htmlFor='status'>
             Status
             <select
-              name="status"
-              id="status"
+              name='status'
+              id='status'
               value={status}
-              onChange={(e) => setStatus(e.target.value)}
-            >
-              <option value="incomplete">Incompleto</option>
-              <option value="complete">Completo</option>
+              onChange={(e) => setStatus(e.target.value)}>
+              <option value='incomplete'>Incompleto</option>
+              <option value='complete'>Completo</option>
             </select>
           </label>
-          <div className="button-container">
+          <div className='button-container'>
             <SecondaryButton
-              className="add"
-              type="submit"
+              className='add'
+              type='submit'
               text={type === 'update' ? 'Atualizar' : 'Adicionar'}
             />
-            <PrimaryButton
-              className="cancel"
-              text="Cancelar"
-              onClick={closeModal}
-            />
+            <PrimaryButton className='cancel' text='Cancelar' onClick={closeModal} />
           </div>
         </form>
       </div>

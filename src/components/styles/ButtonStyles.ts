@@ -1,6 +1,11 @@
-import styled from 'styled-components';
+import styled, { CSSProperties } from 'styled-components';
 
-export const ButtonStyle = styled.button`
+interface ButtonStyleProps {
+  primary?: CSSProperties;
+  secondary?: CSSProperties;
+}
+
+export const ButtonStyle = styled.button<ButtonStyleProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,15 +20,11 @@ export const ButtonStyle = styled.button`
   text-transform: capitalize;
   overflow: hidden;
 
-  ${({ primary }) => primary} {
-    background: ${({ theme }) => theme.themeBlue};
-    color: ${({ theme }) => theme.white};
-  }
+  background: ${({ theme }) => theme.themeBlue};
+  color: ${({ theme }) => theme.white};
 
-  ${({ secondary }) => secondary} {
-    background: ${({ theme }) => theme.secondaryBtn};
-    color: ${({ theme }) => theme.bg1};
-  }
+  background: ${({ theme }) => theme.secondaryBtn};
+  color: ${({ theme }) => theme.bg1};
 `;
 
 export const PomodoroButtonStyle = styled.button`

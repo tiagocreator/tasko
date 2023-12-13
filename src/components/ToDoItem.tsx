@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ToDoItemStyle } from './styles/ToDoItemStyles';
 import format from 'date-fns/format';
 import { MdDelete, MdEdit } from 'react-icons/md';
@@ -8,6 +8,15 @@ import { toast } from 'react-hot-toast';
 import TodoModal from './ToDoModal';
 import CheckBox from './CheckBox';
 import { motion } from 'framer-motion';
+
+interface ToDoItemProps {
+  todo: {
+    id: number;
+    status: string;
+    title: string;
+    time: string;
+  };
+}
 
 const child = {
   hidden: {
@@ -20,12 +29,12 @@ const child = {
   },
 };
 
-const ToDoItem = ({ todo }) => {
+const ToDoItem: React.FC<ToDoItemProps> = ({ todo }) => {
   const dispatch = useDispatch();
 
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState<boolean>(false);
 
-  const [updateModalOpen, setupdateModalOpen] = useState(false);
+  const [updateModalOpen, setupdateModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (todo.status === 'complete') {
@@ -46,52 +55,42 @@ const ToDoItem = ({ todo }) => {
 
   const handleCheck = () => {
     setChecked(!checked);
-    dispatch(
-      updateTodo({ ...todo, status: checked ? 'incomplete' : 'complete' })
-    );
+    dispatch(updateTodo({ ...todo, status: checked ? 'incomplete' : 'complete' }));
   };
 
   return (
     <>
       <ToDoItemStyle as={motion.div} variants={child}>
-        <div className="todoDetails">
+        <div className='todoDetails'>
           <CheckBox checked={checked} handleCheck={handleCheck} />
-          <div className="texts">
-            <p
-              className={`todoText ${
-                todo.status === 'complete' && 'todoText--completed'
-              }`}
-            >
+          <div className='texts'>
+            <p className={`todoText ${todo.status === 'complete' && 'todoText--completed'}`}>
               {todo.title}
             </p>
-            <p className="time">
-              {format(new Date(todo.time), 'p, dd/MM/yyyy')}
-            </p>
+            <p className='time'>{format(new Date(todo.time), 'p, dd/MM/yyyy')}</p>
           </div>
         </div>
-        <div className="todoActions">
+        <div className='todoActions'>
           <div
-            className="icon"
-            role="button"
+            className='icon'
+            role='button'
             tabIndex={0}
             onKeyDown={deleteTask}
-            onClick={deleteTask}
-          >
+            onClick={deleteTask}>
             <MdDelete />
           </div>
           <div
-            className="icon"
-            role="button"
+            className='icon'
+            role='button'
             tabIndex={0}
             onKeyDown={updateTask}
-            onClick={updateTask}
-          >
+            onClick={updateTask}>
             <MdEdit />
           </div>
         </div>
       </ToDoItemStyle>
       <TodoModal
-        type="update"
+        type='update'
         todo={todo}
         modalActive={updateModalOpen}
         setModalActive={setupdateModalOpen}

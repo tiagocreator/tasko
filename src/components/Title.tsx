@@ -1,6 +1,10 @@
 import { TitleStyle } from './styles/TitleStyles';
 
-const Title = ({ title }) => {
+interface Props {
+  title: string;
+}
+
+const Title: React.FC<Props> = ({ title }) => {
   return <TitleStyle>{title}</TitleStyle>;
 };
 
