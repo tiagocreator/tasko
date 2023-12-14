@@ -1,8 +1,8 @@
 import ReactSlider from 'react-slider';
-import SettingsContext from '../context/SettingsContext';
-import { useContext } from 'react';
+import { setShowSettings, setWorkMinutes, setBreakMinutes } from '../redux/pomodoroSlice';
 import { PomodoroSettingsStyle } from './styles/PomodoroSettingsStyles';
 import { SettingsButtonStyle } from './styles/ButtonStyles';
+import { useSelector, useDispatch } from 'react-redux';
 
 interface Props {
   onClick: () => void;
@@ -28,39 +28,40 @@ const BackButton: React.FC<Props> = ({ onClick }) => {
 };
 
 const PomodoroSettings: React.FC = () => {
-  const settingsInfo = useContext(SettingsContext);
+  const pomodoroStatus = useSelector((state: any) => state.pomodoro);
+  const dispatch = useDispatch();
 
   const handleWorkMinutesChange = (newValue: number | number[]) => {
-    settingsInfo.setWorkMinutes(Array.isArray(newValue) ? newValue[0] : newValue);
+    dispatch(setWorkMinutes(Array.isArray(newValue) ? newValue[0] : newValue));
   };
 
   const handleBreakMinutesChange = (newValue: number | number[]) => {
-    settingsInfo.setBreakMinutes(Array.isArray(newValue) ? newValue[0] : newValue);
+    dispatch(setBreakMinutes(Array.isArray(newValue) ? newValue[0] : newValue));
   };
 
   return (
     <PomodoroSettingsStyle>
-      <label>tempo: {settingsInfo.workMinutes}:00</label>
+      <label>tempo: {pomodoroStatus.workMinutes}:00</label>
       <ReactSlider
         className='slider'
         thumbClassName='thumb'
         trackClassName='track'
-        value={settingsInfo.workMinutes}
+        value={pomodoroStatus.workMinutes}
         onChange={handleWorkMinutesChange}
         min={1}
         max={120}
       />
-      <label>pausa: {settingsInfo.breakMinutes}:00</label>
+      <label>pausa: {pomodoroStatus.breakMinutes}:00</label>
       <ReactSlider
         className='slider green'
         thumbClassName='thumb'
         trackClassName='track'
-        value={settingsInfo.breakMinutes}
+        value={pomodoroStatus.breakMinutes}
         onChange={handleBreakMinutesChange}
         min={1}
         max={120}
       />
-      <BackButton onClick={() => settingsInfo.setShowSettings(false)} />
+      <BackButton onClick={() => dispatch(setShowSettings(false))} />
     </PomodoroSettingsStyle>
   );
 };

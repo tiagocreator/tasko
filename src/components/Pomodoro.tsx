@@ -1,9 +1,10 @@
+import React, { useState, useEffect, useRef } from 'react';
 import { PomodoroStyle } from './styles/PomodoroStyles';
 import { PomodoroButtonStyle, SettingsButtonStyle } from './styles/ButtonStyles';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import React, { useContext, useState, useEffect, useRef } from 'react';
-import SettingsContext from '../context/SettingsContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { setShowSettings } from '../redux/pomodoroSlice';
 
 import { theme } from '../themes';
 
@@ -68,7 +69,9 @@ const SettingsButton: React.FC<ButtonProps> = ({ onClick }) => {
 };
 
 const Pomodoro: React.FC = () => {
-  const settingsInfo = useContext(SettingsContext);
+  const pomodoroStatus = useSelector((state: any) => state.pomodoro);
+
+  const dispatch = useDispatch();
 
   const [isPaused, setIsPaused] = useState<boolean>(true);
   const [mode, setMode] = useState<string>('work');
@@ -87,7 +90,7 @@ const Pomodoro: React.FC = () => {
     function switchMode() {
       const nextMode = modeRef.current === 'work' ? 'break' : 'work';
       const nextSeconds =
-        (nextMode === 'work' ? settingsInfo.workMinutes : settingsInfo.breakMinutes)! * 60;
+        (nextMode === 'work' ? pomodoroStatus.workMinutes : pomodoroStatus.breakMinutes)! * 60;
 
       setMode(nextMode);
       modeRef.current = nextMode;
@@ -96,7 +99,7 @@ const Pomodoro: React.FC = () => {
       secondsLeftRef.current = nextSeconds;
     }
 
-    secondsLeftRef.current = settingsInfo.workMinutes * 60;
+    secondsLeftRef.current = pomodoroStatus.workMinutes * 60;
     setSecondsLeft(secondsLeftRef.current);
 
     const interval = setInterval(() => {
@@ -111,10 +114,10 @@ const Pomodoro: React.FC = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [settingsInfo]);
+  }, [pomodoroStatus]);
 
   const totalSeconds =
-    mode === 'work' ? settingsInfo.workMinutes * 60 : settingsInfo.breakMinutes * 60;
+    mode === 'work' ? pomodoroStatus.workMinutes * 60 : pomodoroStatus.breakMinutes * 60;
   const percentage = Math.round((secondsLeft / totalSeconds) * 100);
 
   const minutes = Math.floor(secondsLeft / 60);
@@ -152,8 +155,7 @@ const Pomodoro: React.FC = () => {
       </div>
       <SettingsButton
         onClick={() => {
-          settingsInfo.setShowSettings(true);
-          console.log(settingsInfo.showSettings);
+          dispatch(setShowSettings(true));
         }}
       />
     </PomodoroStyle>
