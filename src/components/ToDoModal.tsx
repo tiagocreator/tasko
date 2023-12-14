@@ -4,11 +4,11 @@ import { MdOutlineClose } from 'react-icons/md';
 import { PrimaryButton, SecondaryButton } from './Button';
 import { useDispatch } from 'react-redux';
 import { addTodo, updateTodo } from '../redux/todoSlice';
-import { v4 as uuid } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import toast from 'react-hot-toast';
 
 interface ToDoItemProps {
-  id: number;
+  id: any;
   title: string;
   status: string;
   time: string;
@@ -51,9 +51,10 @@ const TodoModal: React.FC<TodoModalProps> = ({ modalActive, setModalActive, type
 
     if (title && status) {
       if (type === 'add') {
+        const newUUID: string = uuidv4();
         dispatch(
           addTodo({
-            id: Number(uuid()),
+            id: newUUID,
             title: title,
             status: status,
             time: new Date().toString(),

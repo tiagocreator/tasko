@@ -1,11 +1,14 @@
 import { useSelector } from 'react-redux';
-import { ToDoStyle } from './styles/ToDoStyles';
-import ToDoItem from './ToDoItem';
 import { motion } from 'framer-motion';
 
+import ToDoItem from './ToDoItem';
+
+import { ToDoStyle } from './styles/ToDoStyles';
+
 const ToDo: React.FC = () => {
-  const filterStatus = useSelector((state: any) => state.todo.filterStatus);
   const todoList = useSelector((state: any) => state.todo.todoList);
+  const filterStatus = useSelector((state: any) => state.todo.filterStatus);
+
   const sortedTodoList = [...todoList].sort(
     (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime(),
   );

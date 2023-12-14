@@ -4,11 +4,11 @@ import ButtonsContainer from '../components/ButtonsContainer';
 
 const ToDoContainer: React.FC = () => {
   return (
-    <>
+    <main>
       <ButtonsContainer />
       <ToDoHeader />
       <ToDo />
-    </>
+    </main>
   );
 };
 

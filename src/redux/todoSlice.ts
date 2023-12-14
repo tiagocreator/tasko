@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface Todo {
-  id: number;
+  id: any;
   title: string;
   status: string;
   time: string;
@@ -34,7 +34,6 @@ export const todoSlice = createSlice({
     addTodo: (state, action: PayloadAction<Todo>) => {
       state.todoList.push(action.payload);
       const todoList = window.localStorage.getItem('todoList');
-
       if (todoList) {
         const todoListArr: Todo[] = JSON.parse(todoList);
         todoListArr.push({ ...action.payload });

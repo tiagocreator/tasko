@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { ToDoItemStyle } from './styles/ToDoItemStyles';
-import format from 'date-fns/format';
-import { MdDelete, MdEdit } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
+import format from 'date-fns/format';
 import { deleteTodo, updateTodo } from '../redux/todoSlice';
 import { toast } from 'react-hot-toast';
+import { motion } from 'framer-motion';
+
 import TodoModal from './ToDoModal';
 import CheckBox from './CheckBox';
-import { motion } from 'framer-motion';
+
+import { MdDelete, MdEdit } from 'react-icons/md';
+
+import { ToDoItemStyle } from './styles/ToDoItemStyles';
 
 interface ToDoItemProps {
   todo: {
-    id: number;
+    id: any;
     status: string;
     title: string;
     time: string;
