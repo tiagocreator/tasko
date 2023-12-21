@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import format from 'date-fns/format';
-import { deleteTodo, updateTodo } from '../redux/todoSlice';
+import { deleteTodo, setShowModalUpdate, setTaskToUpdate, updateTodo } from '../redux/todoSlice';
 import { toast } from 'react-hot-toast';
 import { motion } from 'framer-motion';
 
-import TodoModal from './ToDoModal';
-import CheckBox from './CheckBox';
+import { CheckBox, ToDoModal } from '../components';
 
 import { MdDelete, MdEdit } from 'react-icons/md';
 
-import { ToDoItemStyle } from './styles/ToDoItemStyles';
+import { TaskStyle } from './styles/TaskStyles';
 
-interface ToDoItemProps {
+interface TaskProps {
   todo: {
     id: any;
     status: string;
@@ -32,12 +31,10 @@ const child = {
   },
 };
 
-const ToDoItem: React.FC<ToDoItemProps> = ({ todo }) => {
+const Task: React.FC<TaskProps> = ({ todo }) => {
   const dispatch = useDispatch();
 
   const [checked, setChecked] = useState<boolean>(false);
-
-  const [updateModalOpen, setupdateModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (todo.status === 'complete') {
@@ -47,23 +44,24 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo }) => {
     }
   }, [todo.status]);
 
-  const deleteTask = () => {
+  const deleteTask = (): void => {
     dispatch(deleteTodo(todo.id));
     toast.success('Tarefa Apagada');
   };
 
-  const updateTask = () => {
-    setupdateModalOpen(true);
+  const updateTask = (): void => {
+    dispatch(setShowModalUpdate(true));
+    dispatch(setTaskToUpdate(todo.id));
   };
 
-  const handleCheck = () => {
+  const handleCheck = (): void => {
     setChecked(!checked);
     dispatch(updateTodo({ ...todo, status: checked ? 'incomplete' : 'complete' }));
   };
 
   return (
     <>
-      <ToDoItemStyle as={motion.div} variants={child}>
+      <TaskStyle as={motion.div} variants={child}>
         <div className='todoDetails'>
           <CheckBox checked={checked} handleCheck={handleCheck} />
           <div className='texts'>
@@ -91,15 +89,10 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo }) => {
             <MdEdit />
           </div>
         </div>
-      </ToDoItemStyle>
-      <TodoModal
-        type='update'
-        todo={todo}
-        modalActive={updateModalOpen}
-        setModalActive={setupdateModalOpen}
-      />
+      </TaskStyle>
+      <ToDoModal type='update' todo={todo} />
     </>
   );
 };
 
-export default ToDoItem;
+export default Task;
