@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import { ToDoModalStyle } from './styles/ToDoModalStyles';
 import { MdOutlineClose } from 'react-icons/md';
-import { PrimaryButton, SecondaryButton } from './Button';
-import { useDispatch } from 'react-redux';
-import { addTodo, updateTodo } from '../redux/todoSlice';
+import { Button } from '../components';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTodo, setShowModalAdd, setShowModalUpdate, updateTodo } from '../redux/todoSlice';
+
 import { v4 as uuidv4 } from 'uuid';
 import toast from 'react-hot-toast';
+
+import { theme } from '../themes';
 
 interface ToDoItemProps {
   id: any;
@@ -15,17 +18,21 @@ interface ToDoItemProps {
 }
 
 interface TodoModalProps {
-  modalActive: boolean;
-  setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
   type: string;
   todo?: ToDoItemProps | null;
 }
 
-const TodoModal: React.FC<TodoModalProps> = ({ modalActive, setModalActive, type, todo }) => {
+const TodoModal: React.FC<TodoModalProps> = ({ type, todo }) => {
   const [title, setTitle] = useState<string>('');
   const [status, setStatus] = useState<string>('incomplete');
 
   const dispatch = useDispatch();
+
+  const showModalAdd = useSelector((state: any) => state.todo.showModalAdd);
+  const showModalUpdate = useSelector((state: any) => state.todo.showModalUpdate);
+  const taskToUpdate = useSelector((state: any) => state.todo.taskToUpdate);
+
+  const modalActive = type === 'add' ? showModalAdd : showModalUpdate && taskToUpdate === todo?.id;
 
   useEffect(() => {
     if (type === 'update' && todo) {
@@ -35,10 +42,14 @@ const TodoModal: React.FC<TodoModalProps> = ({ modalActive, setModalActive, type
       setTitle('');
       setStatus('incomplete');
     }
-  }, [type, todo, modalActive]);
+  }, [type, todo]);
 
   const closeModal = () => {
-    setModalActive(false);
+    if (type === 'add') {
+      dispatch(setShowModalAdd(false));
+    } else if (type === 'update') {
+      dispatch(setShowModalUpdate(false));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -73,12 +84,22 @@ const TodoModal: React.FC<TodoModalProps> = ({ modalActive, setModalActive, type
           return;
         }
       }
-      setModalActive(false);
+      closeModal();
     }
   };
 
+  const hide: React.CSSProperties = {
+    display: 'none',
+  };
+
+  const show: React.CSSProperties = {
+    display: 'flex',
+  };
+
+  const isVisible = modalActive ? show : hide;
+
   return (
-    <ToDoModalStyle modalActive={modalActive}>
+    <ToDoModalStyle style={isVisible}>
       <div className='container'>
         <div
           className='close-btn'
@@ -112,12 +133,20 @@ const TodoModal: React.FC<TodoModalProps> = ({ modalActive, setModalActive, type
             </select>
           </label>
           <div className='button-container'>
-            <SecondaryButton
+            <Button
               className='add'
               type='submit'
               text={type === 'update' ? 'Atualizar' : 'Adicionar'}
+              color={theme.white}
+              bg={theme.successMain}
             />
-            <PrimaryButton className='cancel' text='Cancelar' onClick={closeModal} />
+            <Button
+              className='cancel'
+              type='button'
+              text='Cancelar'
+              bg={theme.errorMain}
+              onClick={closeModal}
+            />
           </div>
         </form>
       </div>
