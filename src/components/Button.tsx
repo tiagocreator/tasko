@@ -1,32 +1,24 @@
 import { ButtonStyle } from './styles/ButtonStyles';
 
-interface Props {
+interface ButtonProps {
   text: string;
   type?: 'submit' | 'button';
   onClick?: () => void;
+  bg?: string;
+  color?: string;
   className?: string;
 }
 
-export const PrimaryButton: React.FC<Props> = ({ text, type, onClick, className }) => {
+const Button: React.FC<ButtonProps> = ({ text, type, onClick, bg, color, className }) => {
   return (
     <ButtonStyle
-      className={className}
-      // primary
+      type={type}
       onClick={onClick}
-      type={type === 'submit' ? 'submit' : 'button'}>
+      style={{ backgroundColor: bg, color: color }}
+      className={className}>
       {text}
     </ButtonStyle>
   );
 };
 
-export const SecondaryButton: React.FC<Props> = ({ text, type, onClick, className }) => {
-  return (
-    <ButtonStyle
-      className={className}
-      // secondary
-      onClick={onClick}
-      type={type === 'submit' ? 'submit' : 'button'}>
-      {text}
-    </ButtonStyle>
-  );
-};
+export default Button;
