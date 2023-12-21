@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 
-import ToDoItem from './ToDoItem';
+import { Task } from '../components';
 
 import { ToDoStyle } from './styles/ToDoStyles';
 
@@ -50,7 +50,7 @@ const ToDo: React.FC = () => {
         initial='hidden'
         animate='visible'>
         {filteredToDoList && filteredToDoList.length > 0 ? (
-          filteredToDoList.map((task) => <ToDoItem todo={task} key={task.id} />)
+          filteredToDoList.map((task) => <Task todo={task} key={task.id} />)
         ) : (
           <motion.p className='empty-text' variants={child}>
             Ainda não tem nenhuma tarefa na lista
