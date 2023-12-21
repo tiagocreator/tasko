@@ -1,9 +1,12 @@
-import { CheckBoxStyle } from './styles/CheckBoxStyles';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
+
+import { CheckBoxStyle } from './styles/CheckBoxStyles';
+
+import { theme } from '../themes';
 
 const checkVariants = {
   initial: {
-    color: '#fff',
+    color: theme.white,
   },
 
   checked: {
@@ -17,29 +20,28 @@ const checkVariants = {
 
 const boxVariants = {
   checked: {
-    background: '#ff705d',
+    background: theme.secondaryMain,
     transition: { duration: 0.1 },
   },
 
   unChecked: {
-    background: '#dedfe1',
+    background: theme.bg2,
     transition: { duration: 0.1 },
   },
 };
 
-interface Props {
+interface CheckBoxProps {
   checked: boolean;
   handleCheck: () => void;
 }
 
-const CheckBox: React.FC<Props> = ({ checked, handleCheck }) => {
+const CheckBox: React.FC<CheckBoxProps> = ({ checked, handleCheck }) => {
   const pathLength = useMotionValue(0);
   const opacity = useTransform(pathLength, [0.05, 0.15], [0, 1]);
 
   return (
     <CheckBoxStyle>
       <motion.div
-        className='svgBox'
         variants={boxVariants}
         animate={checked ? 'checked' : 'unChecked'}
         onClick={handleCheck}>
