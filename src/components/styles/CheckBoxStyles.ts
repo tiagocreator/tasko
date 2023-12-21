@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const CheckBoxStyle = styled.div`
-  .svgBox {
+  div {
     flex-basis: 25px;
     flex-shrink: 0;
     height: 30px;

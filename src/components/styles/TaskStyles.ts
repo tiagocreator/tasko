@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-export const ToDoItemStyle = styled(motion.div)`
+export const TaskStyle = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: space-between;

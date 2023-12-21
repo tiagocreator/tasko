@@ -1,24 +1,24 @@
 import styled from 'styled-components';
 
 export const HeaderStyle = styled.header`
-  height: 75px;
+  height: 70px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  .logo {
+  div {
     display: flex;
     align-items: center;
-  }
 
-  .logo span {
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-  }
+    span {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+    }
 
-  .logo img {
-    margin-inline-end: 10px;
+    img {
+      margin-inline-end: 10px;
+    }
   }
 `;

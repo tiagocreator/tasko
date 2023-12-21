@@ -14,7 +14,7 @@ export const GlobalStyles = createGlobalStyle<{ theme: MyTheme }>`
     min-height: 100vh;
   }
 
-  body {
+  body, #root {
     font-size: 16px;
     color: ${({ theme }) => theme.text};
     background: ${({ theme }) => theme.bg1};
@@ -23,6 +23,12 @@ export const GlobalStyles = createGlobalStyle<{ theme: MyTheme }>`
     width: 95%;
     max-width: 1024px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
   }
 
   ul {

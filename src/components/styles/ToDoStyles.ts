@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-export const ToDoStyle = styled.main`
+export const ToDoStyle = styled.div`
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 2rem auto;
 
   .content-wrapper {
     background: ${({ theme }) => theme.bg2};

@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 
-interface ToDoModalStyleProps {
-  modalActive: boolean;
-}
-
-export const ToDoModalStyle = styled.div<ToDoModalStyleProps>`
-  display: ${({ modalActive }) => (modalActive ? 'flex' : 'none')};
+export const ToDoModalStyle = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -47,7 +42,7 @@ export const ToDoModalStyle = styled.div<ToDoModalStyleProps>`
     transition: 0.3s ease all;
     z-index: -1;
     &:hover {
-      background-color: ${({ theme }) => theme.themeRed};
+      background-color: ${({ theme }) => theme.secondaryMain};
       color: ${({ theme }) => theme.white};
     }
 
@@ -96,18 +91,11 @@ export const ToDoModalStyle = styled.div<ToDoModalStyleProps>`
     margin-block-start: 1rem;
 
     .add {
-      height: 55px;
-      font-size: 1.2rem;
-      letter-spacing: 0.5px;
-      width: 90%;
       margin: 0 auto;
     }
 
     .cancel {
       display: none;
-      height: 45px;
-      width: 150px;
-      font-size: 1.2rem;
     }
 
     @media (min-width: 768px) {
@@ -115,8 +103,6 @@ export const ToDoModalStyle = styled.div<ToDoModalStyleProps>`
       margin-block-start: 2rem;
 
       .add {
-        height: 45px;
-        width: 150px;
         margin: 0 1rem 0 0;
       }
 
