@@ -20,11 +20,17 @@ const getInitialValues = (): Todo[] => {
 interface TodoState {
   filterStatus: string;
   todoList: Todo[];
+  showModalAdd: boolean;
+  showModalUpdate: boolean;
+  taskToUpdate: string | null;
 }
 
 const initialValue: TodoState = {
   filterStatus: 'all',
   todoList: getInitialValues(),
+  showModalAdd: false,
+  showModalUpdate: false,
+  taskToUpdate: null,
 };
 
 export const todoSlice = createSlice({
@@ -75,8 +81,27 @@ export const todoSlice = createSlice({
     filterItems: (state, action: PayloadAction<string>) => {
       state.filterStatus = action.payload;
     },
+    setShowModalAdd: (state, action: PayloadAction<boolean>) => {
+      state.showModalAdd = action.payload;
+    },
+
+    setShowModalUpdate: (state, action: PayloadAction<boolean>) => {
+      state.showModalUpdate = action.payload;
+    },
+
+    setTaskToUpdate: (state, action: PayloadAction<string | null>) => {
+      state.taskToUpdate = action.payload;
+    },
   },
 });
 
-export const { addTodo, deleteTodo, updateTodo, filterItems } = todoSlice.actions;
+export const {
+  addTodo,
+  deleteTodo,
+  updateTodo,
+  filterItems,
+  setShowModalAdd,
+  setShowModalUpdate,
+  setTaskToUpdate,
+} = todoSlice.actions;
 export default todoSlice.reducer;
